@@ -57,6 +57,12 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Sahaani Brand Colors
+        'sahaani-gold': "hsl(var(--sahaani-gold))",
+        'sahaani-red': "hsl(var(--sahaani-red))",
+        'sahaani-green': "hsl(var(--sahaani-green))",
+        'sahaani-wood': "hsl(var(--sahaani-wood))",
+        'sahaani-cream': "hsl(var(--sahaani-cream))",
       },
       borderRadius: {
         lg: "var(--radius)",
