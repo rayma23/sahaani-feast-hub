@@ -28,6 +28,7 @@ const Catering = () => {
     message: ""
   });
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -37,21 +38,74 @@ const Catering = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Catering Request Sent!",
-      description: "Thank you for your interest in our catering services. We'll contact you within 24 hours with a custom quote.",
-    });
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      eventType: "",
-      eventDate: "",
-      guestCount: "",
-      message: ""
-    });
+
+    const formspreeIdRaw = import.meta.env.VITE_FORMSPREE_ID as string | undefined;
+    const formspreeId = formspreeIdRaw?.includes("formspree.io/f/")
+      ? formspreeIdRaw.split("/").pop()
+      : formspreeIdRaw;
+    if (!formspreeId) {
+      toast({
+        title: "Submission not configured",
+        description: "Missing VITE_FORMSPREE_ID. Please set it and reload.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+
+      const payload = new FormData();
+      payload.append("name", formData.name);
+      payload.append("email", formData.email);
+      payload.append("_replyto", formData.email);
+      payload.append("phone", formData.phone);
+      payload.append("eventType", formData.eventType);
+      payload.append("eventDate", formData.eventDate);
+      payload.append("guestCount", formData.guestCount.toString());
+      payload.append("message", formData.message);
+      payload.append("formName", "Catering Request");
+      payload.append("_subject", `New Catering Request from ${formData.name}`);
+      payload.append("_gotcha", "");
+
+      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+        method: "POST",
+        body: payload,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Form submission failed");
+      }
+
+      toast({
+        title: "Catering Request Sent!",
+        description:
+          "Thank you for your interest in our catering services. We'll contact you within 24 hours with a custom quote.",
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        eventType: "",
+        eventDate: "",
+        guestCount: "",
+        message: "",
+      });
+    } catch (error) {
+      toast({
+        title: "Submission failed",
+        description: "Please try again later or contact us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const packages = [
@@ -366,9 +420,9 @@ const Catering = () => {
                     />
                   </div>
 
-                  <Button type="submit" className="btn-hero w-full text-lg">
+                  <Button type="submit" className="btn-hero w-full text-lg" disabled={isSubmitting}>
                     <Calendar className="h-5 w-5 mr-2" />
-                    Submit Catering Request
+                    {isSubmitting ? "Submitting..." : "Submit Catering Request"}
                   </Button>
                 </form>
 
