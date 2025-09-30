@@ -5,6 +5,7 @@ import { Menu, X, Phone } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [logoOk, setLogoOk] = useState(true);
   const location = useLocation();
 
   const navItems = [
@@ -23,18 +24,19 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2" aria-label="Sahaani Home">
-            <div className="logo-badge flex items-center">
-              <img
-                src="/saahani-logo.png"
-                alt="Saahani logo"
-                className="h-8 w-auto md:h-9"
-                loading="eager"
-                decoding="async"
-                onError={(e) => {
-                  const target = e.currentTarget as HTMLImageElement;
-                  target.style.display = "none";
-                }}
-              />
+            <div className="logo-badge flex items-center min-h-9">
+              {logoOk ? (
+                <img
+                  src="/saahani-logo.png"
+                  alt="Saahani logo"
+                  className="h-8 w-auto md:h-9"
+                  loading="eager"
+                  decoding="async"
+                  onError={() => setLogoOk(false)}
+                />
+              ) : (
+                <span className="text-2xl font-bold text-gradient-gold px-1">Sahaani</span>
+              )}
             </div>
             <span className="sr-only">Sahaani</span>
           </Link>
