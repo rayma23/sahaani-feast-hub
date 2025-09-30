@@ -9,6 +9,7 @@ import { Search, Plus, Star, Clock } from "lucide-react";
 import chickenWings from "@/assets/chicken-wings.jpg";
 import beefSteak from "@/assets/beef-steak.jpg";
 import freshSalad from "@/assets/fresh-salad.jpg";
+import { Helmet } from "react-helmet-async";
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -144,6 +145,15 @@ const Menu = () => {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <title>Menu | Sahaani</title>
+        <meta name="description" content="Explore our delicious menu: chicken, beef, salads and more." />
+        <meta property="og:title" content="Menu | Sahaani" />
+        <meta property="og:description" content="Explore our delicious menu: chicken, beef, salads and more." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/saahani-logo.png" />
+        <meta property="og:url" content="/menu" />
+      </Helmet>
       <Header />
 
       {/* Hero Section */}

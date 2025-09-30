@@ -16,6 +16,7 @@ import {
   CheckCircle
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Helmet } from "react-helmet-async";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -26,6 +27,7 @@ const Contact = () => {
     message: ""
   });
   const { toast } = useToast();
+  const [submitting, setSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -35,19 +37,38 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent Successfully!",
-      description: "Thank you for contacting Sahaani. We'll get back to you within 24 hours.",
-    });
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: ""
-    });
+    const formspreeId = import.meta.env.VITE_FORMSPREE_ID as string | undefined;
+    if (!formspreeId) {
+      toast({ title: "Form not configured", description: "Add VITE_FORMSPREE_ID to your environment to enable submissions.", });
+      return;
+    }
+    try {
+      setSubmitting(true);
+      const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+      const ok = res.ok;
+      if (ok) {
+        toast({ title: "Message Sent Successfully!", description: "Thank you for contacting Sahaani. We'll get back to you within 24 hours.", });
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      } else {
+        toast({ title: "Submission failed", description: "Please try again later or email hello@sahaani.rw" });
+      }
+    } catch (err) {
+      toast({ title: "Network error", description: "Please check your connection and try again." });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -104,6 +125,15 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <title>Contact | Sahaani</title>
+        <meta name="description" content="Contact Sahaani for orders, catering and inquiries. We'd love to hear from you." />
+        <meta property="og:title" content="Contact | Sahaani" />
+        <meta property="og:description" content="Contact Sahaani for orders, catering and inquiries." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/saahani-logo.png" />
+        <meta property="og:url" content="/contact" />
+      </Helmet>
       <Header />
 
       {/* Hero Section */}
@@ -265,9 +295,9 @@ const Contact = () => {
                     />
                   </div>
 
-                  <Button type="submit" className="btn-hero w-full text-lg">
+                  <Button type="submit" className="btn-hero w-full text-lg" disabled={submitting}>
                     <Send className="h-5 w-5 mr-2" />
-                    Send Message
+                    {submitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
 
