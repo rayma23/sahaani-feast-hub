@@ -24,18 +24,18 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2" aria-label="Sahaani Home">
-            <div className="logo-badge flex items-center min-h-9">
+            <div className="logo-badge flex items-center min-h-10 md:min-h-12">
               {logoOk ? (
                 <img
                   src="/saahani-logo.png"
                   alt="Saahani logo"
-                  className="h-8 w-auto md:h-9"
+                  className="h-10 w-auto md:h-12 mix-blend-multiply"
                   loading="eager"
                   decoding="async"
                   onError={() => setLogoOk(false)}
                 />
               ) : (
-                <span className="text-2xl font-bold text-gradient-gold px-1">Sahaani</span>
+                <span className="text-3xl md:text-4xl font-bold text-gradient-gold px-1">Sahaani</span>
               )}
             </div>
             <span className="sr-only">Sahaani</span>

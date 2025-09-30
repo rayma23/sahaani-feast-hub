@@ -18,14 +18,6 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4">
         <div className="max-w-2xl">
-          <div className="flex items-center space-x-2 mb-6 animate-fade-in-up">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-5 w-5 fill-primary text-primary" />
-              ))}
-            </div>
-            <span className="text-sm text-muted-foreground">Rated 5.0 by our customers</span>
-          </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up">
             Taste the 
@@ -60,10 +52,7 @@ const Hero = () => {
               <div className="text-3xl font-bold text-primary">50+</div>
               <div className="text-sm text-muted-foreground">Menu Items</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary">5★</div>
-              <div className="text-sm text-muted-foreground">Average Rating</div>
-            </div>
+            {/* Removed rating tile for cleaner hero */}
           </div>
         </div>
       </div>
