@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
+import saahaniLogo from "@/assets/saahani-logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,10 +23,14 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold text-gradient-gold">
-              Sahaani
-            </div>
+          <Link to="/" className="flex items-center space-x-2" aria-label="Sahaani Home">
+            <img
+              src={saahaniLogo}
+              alt="Saahani logo"
+              className="h-8 w-auto md:h-9"
+              loading="eager"
+              decoding="async"
+            />
           </Link>
 
           {/* Desktop Navigation */}

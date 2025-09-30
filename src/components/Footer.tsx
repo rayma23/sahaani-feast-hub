@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import saahaniLogo from "@/assets/saahani-logo.png";
 import { 
   Phone, 
   Mail, 
@@ -38,10 +39,14 @@ const Footer = () => {
         <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8 mb-12">
           {/* Brand Section */}
           <div className="lg:col-span-1">
-            <Link to="/" className="inline-block mb-6">
-              <div className="text-3xl font-bold text-gradient-gold">
-                Sahaani
-              </div>
+            <Link to="/" className="inline-block mb-6" aria-label="Sahaani Home">
+              <img
+                src={saahaniLogo}
+                alt="Saahani logo"
+                className="h-10 w-auto"
+                loading="lazy"
+                decoding="async"
+              />
             </Link>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               Bringing you the finest African cuisine with fresh ingredients, 
