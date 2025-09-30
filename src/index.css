@@ -160,6 +160,12 @@
            bg-clip-text text-transparent font-bold;
   }
 
+  /* Logo container that blends with theme */
+  .logo-badge {
+    @apply bg-[hsl(var(--sahaani-cream))] border border-[hsl(var(--sahaani-gold))]/40 rounded-lg px-2 py-1
+           shadow-[var(--shadow-golden)] hover:shadow-lg transition-transform duration-300 hover:scale-[1.02];
+  }
+
   .section-dark {
     @apply bg-gradient-to-b from-[hsl(var(--background))] to-[hsl(25_15%_6%)]
            border-t border-[hsl(var(--border))];

@@ -23,17 +23,19 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2" aria-label="Sahaani Home">
-            <img
-              src="/saahani-logo.png"
-              alt="Saahani logo"
-              className="h-8 w-auto md:h-9"
-              loading="eager"
-              decoding="async"
-              onError={(e) => {
-                const target = e.currentTarget as HTMLImageElement;
-                target.style.display = "none";
-              }}
-            />
+            <div className="logo-badge flex items-center">
+              <img
+                src="/saahani-logo.png"
+                alt="Saahani logo"
+                className="h-8 w-auto md:h-9"
+                loading="eager"
+                decoding="async"
+                onError={(e) => {
+                  const target = e.currentTarget as HTMLImageElement;
+                  target.style.display = "none";
+                }}
+              />
+            </div>
             <span className="sr-only">Sahaani</span>
           </Link>
 
