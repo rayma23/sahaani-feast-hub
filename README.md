@@ -60,6 +60,21 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
+## Environment variables
+
+Create a `.env` file (never commit it) with:
+
+```
+VITE_FORMSPREE_ID=your_formspree_id
+```
+
+For Vercel deployments:
+- Go to Project Settings → Environment Variables
+- Add key `VITE_FORMSPREE_ID` with value `your_formspree_id`
+- Redeploy the project
+
+Note: `VITE_` prefix is required so Vite exposes the variable to the client.
+
 ## How can I deploy this project?
 
 Simply open [Lovable](https://lovable.dev/projects/da0d7250-c4dd-4d95-87f0-36df6bbfc145) and click on Share -> Publish.
