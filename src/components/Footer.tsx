@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import saahaniLogo from "@/assets/saahani-logo.png";
 import { 
   Phone, 
   Mail, 
@@ -41,11 +40,15 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <Link to="/" className="inline-block mb-6" aria-label="Sahaani Home">
               <img
-                src={saahaniLogo}
+                src="/saahani-logo.png"
                 alt="Saahani logo"
                 className="h-10 w-auto"
                 loading="lazy"
                 decoding="async"
+                onError={(e) => {
+                  const target = e.currentTarget as HTMLImageElement;
+                  target.style.display = "none";
+                }}
               />
             </Link>
             <p className="text-muted-foreground mb-6 leading-relaxed">

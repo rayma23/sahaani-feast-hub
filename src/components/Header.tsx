@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
-import saahaniLogo from "@/assets/saahani-logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,12 +24,17 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2" aria-label="Sahaani Home">
             <img
-              src={saahaniLogo}
+              src="/saahani-logo.png"
               alt="Saahani logo"
               className="h-8 w-auto md:h-9"
               loading="eager"
               decoding="async"
+              onError={(e) => {
+                const target = e.currentTarget as HTMLImageElement;
+                target.style.display = "none";
+              }}
             />
+            <span className="sr-only">Sahaani</span>
           </Link>
 
           {/* Desktop Navigation */}
