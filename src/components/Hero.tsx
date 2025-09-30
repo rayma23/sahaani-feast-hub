@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-food-spread.jpg";
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -34,11 +36,11 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up">
-            <Button className="btn-hero text-lg px-8 py-4">
+            <Button className="btn-hero text-lg px-8 py-4" onClick={() => navigate("/menu") }>
               Order Now
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button className="btn-secondary text-lg px-8 py-4">
+            <Button className="btn-secondary text-lg px-8 py-4" onClick={() => navigate("/menu") }>
               View Menu
             </Button>
           </div>

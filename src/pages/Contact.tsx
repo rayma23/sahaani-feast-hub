@@ -136,85 +136,8 @@ const Contact = () => {
       </Helmet>
       <Header />
 
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-b from-background to-muted/20">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto">
-            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
-              Contact Us
-            </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Get in <span className="text-gradient-gold">Touch</span>
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Have questions about our menu, want to place a special order, or need catering services? 
-              We're here to help and would love to hear from you.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Info */}
-      <section className="py-20 section-dark">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {contactInfo.map((info, index) => (
-              <Card key={index} className="card-food text-center group">
-                <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-                    <info.icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="font-bold text-lg mb-2">{info.title}</h3>
-                  <p className="text-primary font-semibold mb-2">{info.details}</p>
-                  <p className="text-sm text-muted-foreground">{info.subtitle}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* Payment Info */}
-          <div className="max-w-md mx-auto">
-            <Card className="card-food text-center">
-              <CardContent className="p-6">
-                <h3 className="font-bold text-lg mb-2">Mobile Money Payment</h3>
-                <div className="text-3xl font-bold text-primary mb-2">41800</div>
-                <p className="text-sm text-muted-foreground">
-                  Use this code for quick mobile money payments
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Actions */}
-      <section className="py-20 bg-gradient-to-b from-background to-muted/20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              How Can We <span className="text-gradient-gold">Help?</span>
-            </h2>
-            <p className="text-muted-foreground">Choose the option that best fits your needs</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {quickActions.map((action, index) => (
-              <Card key={index} className="card-food text-center group">
-                <CardContent className="p-6">
-                  <h3 className="font-bold text-lg mb-3">{action.title}</h3>
-                  <p className="text-muted-foreground mb-6">{action.description}</p>
-                  <Button className="btn-hero w-full">
-                    {action.action}
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form */}
-      <section id="contact-form" className="py-20 section-dark">
+      {/* Contact Form Only */}
+      <section id="contact-form" className="py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-12">

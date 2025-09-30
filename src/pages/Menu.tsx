@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Search, Plus, Star, Clock } from "lucide-react";
+import { menuItems as allItems, categoryOrder } from "@/lib/menu-data";
 import chickenWings from "@/assets/chicken-wings.jpg";
 import beefSteak from "@/assets/beef-steak.jpg";
 import freshSalad from "@/assets/fresh-salad.jpg";
@@ -15,131 +16,47 @@ const Menu = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const categories = [
-    { id: "all", name: "All Items", count: 25 },
-    { id: "chicken", name: "Chicken", count: 8 },
-    { id: "beef", name: "Beef", count: 6 },
-    { id: "salads", name: "Salads & Fruits", count: 5 },
-    { id: "drinks", name: "Beverages", count: 6 }
-  ];
-
-  const menuItems = [
-    {
-      id: 1,
-      name: "Chicken Wings",
-      description: "Tender grilled chicken wings with herbs and special spices",
-      price: "6.5k rwf",
-      image: chickenWings,
-      category: "chicken",
-      rating: 4.9,
-      prepTime: "15 mins",
-      isPopular: true
-    },
-    {
-      id: 2,
-      name: "Chicken Stir Fry",
-      description: "Sautéed chicken with mixed vegetables and aromatic seasonings",
-      price: "7.5k rwf",
-      image: chickenWings,
-      category: "chicken",
-      rating: 4.8,
-      prepTime: "12 mins",
-      isPopular: false
-    },
-    {
-      id: 3,
-      name: "Chicken Legs",
-      description: "Marinated chicken legs grilled to perfection",
-      price: "8k rwf",
-      image: chickenWings,
-      category: "chicken",
-      rating: 4.7,
-      prepTime: "20 mins",
-      isPopular: false
-    },
-    {
-      id: 4,
-      name: "Chicken Breast",
-      description: "Premium chicken breast with traditional seasonings",
-      price: "8.5k rwf",
-      image: chickenWings,
-      category: "chicken",
-      rating: 4.9,
-      prepTime: "18 mins",
-      isPopular: true
-    },
-    {
-      id: 5,
-      name: "Beef Fillet",
-      description: "Premium beef fillet cooked to your preference",
-      price: "8.5k rwf",
-      image: beefSteak,
-      category: "beef",
-      rating: 4.9,
-      prepTime: "25 mins",
-      isPopular: true
-    },
-    {
-      id: 6,
-      name: "Beef Stir Fry",
-      description: "Tender beef strips with fresh vegetables",
-      price: "8k rwf",
-      image: beefSteak,
-      category: "beef",
-      rating: 4.8,
-      prepTime: "15 mins",
-      isPopular: false
-    },
-    {
-      id: 7,
-      name: "Beef Steak",
-      description: "Juicy beef steak with seasonal vegetables",
-      price: "8.5k rwf",
-      image: beefSteak,
-      category: "beef",
-      rating: 4.8,
-      prepTime: "20 mins",
-      isPopular: false
-    },
-    {
-      id: 8,
-      name: "Mixed Salad",
-      description: "Fresh lettuce, tomato, cucumber, and onion with dressing",
-      price: "4k rwf",
-      image: freshSalad,
-      category: "salads",
-      rating: 4.7,
-      prepTime: "5 mins",
-      isPopular: false
-    },
-    {
-      id: 9,
-      name: "Avocado Salad",
-      description: "Fresh lettuce and avocado with house dressing",
-      price: "2.5k rwf",
-      image: freshSalad,
-      category: "salads",
-      rating: 4.6,
-      prepTime: "5 mins",
-      isPopular: false
-    },
-    {
-      id: 10,
-      name: "Chicken Salad",
-      description: "Grilled chicken with mixed greens and vegetables",
-      price: "5.5k rwf",
-      image: freshSalad,
-      category: "salads",
-      rating: 4.8,
-      prepTime: "8 mins",
-      isPopular: true
+  const categories = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const item of allItems) {
+      counts[item.category] = (counts[item.category] || 0) + 1;
     }
-  ];
+    return [
+      { id: "all", name: "All Items", count: allItems.length },
+      ...categoryOrder.map(c => ({ id: c.id, name: c.name, count: counts[c.id] || 0 }))
+    ];
+  }, []);
+
+  const imageForCategory = (category: string) => {
+    switch (category) {
+      case "chicken":
+        return chickenWings;
+      case "beef":
+        return beefSteak;
+      case "fruits_salads":
+      case "packages":
+      case "drinks":
+      case "snacks":
+      case "omelet":
+      case "agatogo":
+      default:
+        return freshSalad;
+    }
+  };
+
+  const menuItems = useMemo(() => {
+    return allItems.map(i => ({
+      ...i,
+      image: i.image || imageForCategory(i.category),
+      rating: 4.8,
+      prepTime: "10-20 mins",
+    }));
+  }, []);
 
   const filteredItems = menuItems.filter(item => {
     const matchesCategory = activeCategory === "all" || item.category === activeCategory;
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         item.description.toLowerCase().includes(searchTerm.toLowerCase());
+                         (item.description || "").toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
