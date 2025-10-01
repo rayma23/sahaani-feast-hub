@@ -162,8 +162,8 @@
 
   /* Logo container that blends with theme */
   .logo-badge {
-    @apply bg-[hsl(var(--sahaani-cream))] border border-[hsl(var(--sahaani-gold))]/40 rounded-lg px-2 py-1
-           shadow-[var(--shadow-golden)] hover:shadow-lg transition-transform duration-300 hover:scale-[1.02];
+    @apply bg-transparent border-0 rounded-lg px-2 py-1
+           shadow-none hover:shadow-none transition-transform duration-300 hover:scale-[1.02];
   }
 
   .section-dark {
