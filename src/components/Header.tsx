@@ -19,7 +19,7 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+    <header className="sticky top-0 z-50 bg-black border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -29,7 +29,7 @@ const Header = () => {
                 <img
                   src="/saahani-logo.png"
                   alt="Saahani logo"
-                  className="h-10 w-auto md:h-12 mix-blend-multiply"
+                  className="h-10 w-auto md:h-12"
                   loading="eager"
                   decoding="async"
                   onError={() => setLogoOk(false)}
